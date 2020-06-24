@@ -33,3 +33,7 @@ A php_cs config file is provided, run `vendon/bin/php-cs-fixer fix` to fix code 
 
 You may modify this repository how you see fit.
  
+## Brad's commit
+Added code to pull records from database tables based on testing criteria.
+Calculated data based on criteria/instructions from initial README.md
+Returned data to be displayed during PHP Unit testing.
