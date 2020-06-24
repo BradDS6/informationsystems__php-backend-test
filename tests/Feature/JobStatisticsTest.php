@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-
 namespace Tests\Feature;
 
 use App\DeliveredRevenue;
 use App\Job;
 use App\StatisticsService;
+use App\StatisticsServiceTest;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -19,11 +19,24 @@ class JobStatisticsTest extends TestCase
         $this->seedJobs();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getJobStatistics("J1");
 
-        $this->assertNotNull($statistics);
+        echo 'JobStatisticsTest::testJobOne Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Job Code: ' . $statistics->jobCode . " " . PHP_EOL .
+            'Job Name: ' . $statistics->jobName . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . " " . PHP_EOL .
+            'Revenue Met?: ' . $statistics->revenueTargetMet . " " . PHP_EOL . 
+            'Month Range: ' . $statistics->monthOfServiceCount . " " . PHP_EOL .PHP_EOL;
+        $this->assertNotNull($statistics, "JobStatisticsTest::testJobOne Failure: No existing data for this criteria.");
         $this->assertSame("J1", $statistics->jobCode);
         $this->assertSame("Seeded Job One", $statistics->jobName);
         $this->assertEqualsWithDelta(10.00, $statistics->totalECPM, 0.01);
@@ -39,12 +52,25 @@ class JobStatisticsTest extends TestCase
         $this->seedJobs();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getJobStatistics("J2");
 
+        echo 'JobStatisticsTest::testJobTwo Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Job Code: ' . $statistics->jobCode . " " . PHP_EOL .
+            'Job Name: ' . $statistics->jobName . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . " " . PHP_EOL .
+            'Revenue Met?: ' . $statistics->revenueTargetMet . " " . PHP_EOL . 
+            'Month Range: ' . $statistics->monthOfServiceCount . " " . PHP_EOL .PHP_EOL;
         $this->assertNotNull($statistics);
-        $this->assertSame("J2", $statistics->jobCode);
+        $this->assertSame("J2", $statistics->jobCode, "JobStatisticsTest::testJobOne Failure: No existing data for this criteria.");
         $this->assertSame("Seeded Job Two", $statistics->jobName);
         $this->assertEquals(null, $statistics->totalECPM);
         $this->assertEquals(null, $statistics->averageECPM);
@@ -59,11 +85,24 @@ class JobStatisticsTest extends TestCase
         $this->seedJobs();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getJobStatistics("J3");
 
-        $this->assertNotNull($statistics);
+        echo 'JobStatisticsTest::testJobThreeDoesntExist Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Job Code: ' . $statistics->jobCode . " " . PHP_EOL .
+            'Job Name: ' . $statistics->jobName . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . " " . PHP_EOL .
+            'Revenue Met?: ' . $statistics->revenueTargetMet . " " . PHP_EOL . 
+            'Month Range: ' . $statistics->monthOfServiceCount . " " . PHP_EOL .PHP_EOL;
+        $this->assertNotNull($statistics, "JobStatisticsTest::ThreeDoesntExist Failure: No existing data for this criteria.");
         $this->assertSame(null, $statistics->jobCode);
         $this->assertSame(null, $statistics->jobName);
         $this->assertSame(null, $statistics->totalECPM);
@@ -103,7 +142,7 @@ class JobStatisticsTest extends TestCase
         DeliveredRevenue::forceCreate([
             "order_id" => 1,
             "order_name" => "Seeded Order One",
-            "month_of_service" => Carbon::parse("2020-01-02 00:00:00"),
+            "month_of_service" => Carbon::parse("2020-02-01 00:00:00"),
             "delivered_impressions" => 1000,
             "revenue" => 10.00,
             "job_id" => $job->id,

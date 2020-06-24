@@ -1,0 +1,14 @@
+composer require league/flysystem //allows me to run php artisan
+composer update
+php artisan key:generate
+Had to copy over a dummy welcome.blade.php
+composer require laravel/ui AND composer update //needed to get php artisan ui:auth
+npm install
+npm run dev (x2)
+DB_HOST=localhost
+
+Now from Docker OR in command after running Makefile shell
+php artisan migrate (x2) //NOW backend-test shows tables jobs and delivered_revenues
+php artisam tinker must be run from here as well.
+
+

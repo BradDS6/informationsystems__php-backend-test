@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\DeliveredRevenue;
 use App\Job;
 use App\StatisticsService;
+use App\StatisticsServiceTest;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -18,11 +19,20 @@ class OrderStatisticsTest extends TestCase
         $this->seedOrders();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getOrderStatistics(1, Carbon::parse("2020-01-01 00:00:00"));
 
-        $this->assertNotNull($statistics);
+        echo 'OrderStatisticsTest::testOrderOne Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . PHP_EOL . PHP_EOL;
+        $this->assertNotNull($statistics, "OrderStatisticsTest::testOrderOne Failure: No existing data for this criteria.");
         $this->assertSame(1, $statistics->orderId);
         $this->assertSame("Seeded Order One", $statistics->orderName);
         $this->assertEqualsWithDelta(10.00, $statistics->totalECPM, 0.01);
@@ -36,11 +46,20 @@ class OrderStatisticsTest extends TestCase
         $this->seedOrders();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getOrderStatistics(2, Carbon::parse("2020-01-01 00:00:00"));
 
-        $this->assertNotNull($statistics);
+        echo 'OrderStatisticsTest::testOrderTwo Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . PHP_EOL . PHP_EOL;
+        $this->assertNotNull($statistics, "OrderStatisticsTest::testOrderTwo Failure: No existing data for this criteria.");
         $this->assertSame(2, $statistics->orderId);
         $this->assertSame("Seeded Order Two", $statistics->orderName);
         $this->assertEqualsWithDelta(10.66, $statistics->totalECPM, 0.01);
@@ -54,11 +73,20 @@ class OrderStatisticsTest extends TestCase
         $this->seedOrders();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getOrderStatistics(3, Carbon::parse("2020-01-01 00:00:00"));
 
-        $this->assertNotNull($statistics);
+        echo 'OrderStatisticsTest::testOrderThree Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . PHP_EOL . PHP_EOL;
+        $this->assertNotNull($statistics, "OrderStatisticsTest::testOrderThree Failure: No existing data for this criteria.");
         $this->assertSame(3, $statistics->orderId);
         $this->assertSame("Seeded Order Three", $statistics->orderName);
         $this->assertEqualsWithDelta(0.00, $statistics->totalECPM, 0.01);
@@ -72,11 +100,20 @@ class OrderStatisticsTest extends TestCase
         $this->seedOrders();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getOrderStatistics(4, Carbon::parse("2020-01-01 00:00:00"));
 
-        $this->assertNotNull($statistics);
+        echo 'OrderStatisticsTest::testOrderFour Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . PHP_EOL . PHP_EOL;
+        $this->assertNotNull($statistics, "OrderStatisticsTest::testOrderFour Failure: No existing data for this criteria.");
         $this->assertSame(4, $statistics->orderId);
         $this->assertSame("Seeded Order Four", $statistics->orderName);
         $this->assertEquals(null, $statistics->totalECPM);
@@ -90,11 +127,20 @@ class OrderStatisticsTest extends TestCase
         $this->seedOrders();
 
         /** @var StatisticsService $service */
-        $service = $this->app->make(StatisticsService::class);
+        $service = $this->app->make(StatisticsServiceTest::class);
 
         $statistics = $service->getOrderStatistics(5, Carbon::parse("2020-01-01 00:00:00"));
 
-        $this->assertNotNull($statistics);
+        echo 'OrderStatisticsTest::testOrderFiveDoesntExist Success: ' . PHP_EOL .
+            'Records found: ' . $statistics->count . " " . PHP_EOL .
+            'Order ID: ' . $statistics->orderId . " " . PHP_EOL .
+            'Order Name: ' . $statistics->orderName . " " . PHP_EOL .
+            'Job ID: ' . $statistics->jobId . " " . PHP_EOL .
+            'Total Revenue: ' . $statistics->totalRevenue . " " . PHP_EOL .
+            'Total Impressions: ' . $statistics->totalImpressions . " " . PHP_EOL .
+            'Total ECPM: ' . $statistics->totalECPM . " " . " " . PHP_EOL .
+            'Average ECPM: ' . $statistics->averageECPM . " " . PHP_EOL . PHP_EOL;
+        $this->assertNotNull($statistics, "OrderStatisticsTest::testOrderFiveDoesntExist Failure: No existing data for this criteria.");
         $this->assertSame(null, $statistics->orderId);
         $this->assertSame(null, $statistics->orderName);
         $this->assertSame(null, $statistics->totalECPM);
